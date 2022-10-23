@@ -1,0 +1,84 @@
+{% extends 'mains.html' %}
+
+{% block body %}
+    
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <title>Star rating using pure CSS</title>
+    <style>
+      body {font-family: Arial, Helvetica, sans-serif;}
+      * {box-sizing: border-box;}
+      
+      input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+      }
+      </style>
+  </head>
+  
+  <body>
+    <h1 style="text-align: center;">Please Rate us</h1>
+
+    <form action="/rate" method="post" style="text-align: center;">
+    <div class="rate my-5" style="text-align: center;">
+      <h1>Rate us</h1>
+      <input type="radio" id="star5" name="rate" value="5" />
+      <label for="star5" title="text">5 stars</label>
+      <input type="radio" id="star4" name="rate" value="4" />
+      <label for="star4" title="text">4 stars</label>
+      <input type="radio" id="star3" name="rate" value="3" />
+      <label for="star3" title="text">3 stars</label>
+      <input type="radio" id="star2" name="rate" value="2" />
+      <label for="star2" title="text">2 stars</label>
+      <input type="radio" id="star1" name="rate" value="1" />
+      <label for="star1" title="text">1 star</label>
+    </div>
+      <div class="container my-5">
+        <!-- <label for="fname">Enter Name</label> -->
+          <input type="text" id="fname" name="names" placeholder="Enter your name..">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      </form>
+
+    <div class="container my-4">
+      <table class="table">
+  
+        {% if alls|length == 0 %}
+            <div class="alert alert-dark my-5" role="alert">
+              .
+            </div>
+
+          {% else %}
+
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Time</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for all in alls %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{all.name}}</td>
+                <td>{{all.rate}} stars</td>
+                <td>{{all.date}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            {% endif %}
+
+          </table>
+    </div>
+
+  {% endblock %}

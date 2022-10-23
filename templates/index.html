@@ -1,0 +1,61 @@
+{% extends "mains.html" %}
+{% block body %}
+    <div class="container my-2">
+        <h1 style="text-align: center;">Add Todos</h1>
+    <form action="/" method="post">
+        <div class="mb-3">
+          <label for="Title" class="form-label">Todo Title</label>
+          <input type="text" class="form-control" name="Title" id="Title" aria-describedby="emailHelp">
+          <div id="Title" class="form-text">We'll never share your activities with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Todo Description</label>
+          <input type="text" class="form-control" name="descr" id="description">
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+
+    <div class="container my-4">
+      <h3>Your Todos</h3>
+      <table class="table">
+  
+        {% if all|length == 0 %}
+            <div class="alert alert-dark" role="alert">
+              No records. Please add your Todos.
+            </div>
+
+          {% else %}
+
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Time</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for alls in all %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{alls.title}}</td>
+                <td>{{alls.description}}</td>
+                <td>{{alls.date}}</td>
+
+                <td>
+                <a href="/update/{{alls.sno}}"><button class="btn btn-outline-dark btn-sm">Edit</button></a>
+                <a href="/delete/{{alls.sno}}"><button class="btn btn-outline-dark btn-sm">Delete</button></a>
+                </td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+            {% endif %}
+
+          </table>
+    </div>
+    
+{% endblock %}
